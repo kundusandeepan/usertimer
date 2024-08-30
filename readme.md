@@ -89,10 +89,14 @@ The service uses AWS DynamoDB for data persistence. Ensure that you have the nec
 #### 2. Set Up Environment Variables: Ensure you have the necessary environment variables set for AWS credentials.
 
 #### 3. Start the Service:
-  ```sh
-  # Assuming you have a script to start the service
-    ./start-service.sh
-```
+* Open a terminal or command prompt.
+* Navigate to the project directory.
+* Run the following command to start the application:
+
+    ```
+    java -jar myapp.jar
+    ```
+
 
 #### 4. Use the API Endpoints: Use the API endpoints defined above to interact with the service.
 
