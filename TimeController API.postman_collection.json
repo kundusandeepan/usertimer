@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "aa84ebca-a92b-45e5-8be4-631af5d80766",
+		"name": "TimeController API",
+		"description": "Collection for TimeController endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5621345"
+	},
+	"item": [
+		{
+			"name": "Start Timer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "lpaId",
+							"value": "",
+							"description": "The LPA ID for which to start the timer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/timers/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timers",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Active Timers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/timers/active",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timers",
+						"active"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Stored Timers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/timers/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"timers",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
