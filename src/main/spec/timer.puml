@@ -1,0 +1,39 @@
+@startuml
+participant User
+participant "AppService\nmicroservice" as AppService
+participant "Timer-Service\nmicroservice" as TimerService
+queue "Service Bus" as TimerServiceQueue
+
+User -> AppService: User Registration
+activate AppService
+AppService -> TimerService: Start Timer
+deactivate AppService
+
+activate TimerService
+'TimerService -> AppService: Notify Timer Started
+'activate AppService
+'AppService --> TimerService: Acknowledge
+'deactivate AppService
+
+TimerService -> TimerService: Wait for 4 hours
+... 4 hours later ...
+TimerService -> TimerServiceQueue: Timer Completed Event(publish)
+activate TimerServiceQueue
+TimerService -> TimerService: Start Next Timer Event
+
+'TimerServiceQueue -> TimerService: Get Next Timer
+'TimerServiceQueue --> TimerService: Acknowledge
+TimerServiceQueue --> TimerService: Acknowledge
+deactivate TimerService
+
+TimerServiceQueue -> AppService: Notify Timer-Completed-Event(subscription)
+activate AppService
+AppService --> TimerServiceQueue: Acknowledge
+deactivate TimerServiceQueue
+
+AppService -> AppService: Calculate Points, $$, etc.
+AppService -> User: Notify User
+'Send Notification
+deactivate AppService
+
+@enduml
