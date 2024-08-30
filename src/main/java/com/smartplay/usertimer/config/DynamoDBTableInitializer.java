@@ -25,8 +25,9 @@ public class DynamoDBTableInitializer {
 
     @PostConstruct
     public void init() {
-        
+        checkAndCreateTable("TestTable", "id");
         checkAndCreateTable("UserTimer","id");
+        // checkAndCreateTable("UserTimer","id");
         // checkAndCreateTable("SmartPlayGamePoint","requestId");
     }
 
