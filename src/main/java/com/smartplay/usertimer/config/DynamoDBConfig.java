@@ -9,7 +9,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
 @Configuration
-@EnableDynamoDBRepositories(basePackages = "com.smartplay.apiservices.repository.interfaces")
+@EnableDynamoDBRepositories(basePackages = "com.smartplay.usertimer.repository.interfaces")
 public class DynamoDBConfig {
 
     @Bean
