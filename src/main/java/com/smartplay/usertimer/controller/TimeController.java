@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartplay.usertimer.model.data.UserTimer;
-import com.smartplay.usertimer.repositories.interfaces.IUserTimerRepository;
+import com.smartplay.usertimer.repository.interfaces.IUserTimerRepository;
 import com.smartplay.usertimer.services.impl.TimerService;
 
 @RestController

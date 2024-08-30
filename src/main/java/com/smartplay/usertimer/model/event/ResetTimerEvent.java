@@ -12,7 +12,7 @@ import lombok.Getter;
 @Getter
 public class ResetTimerEvent extends ApplicationEvent {
 
-    private UUID id;
+    private UUID timerId;
     private String lpaId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -20,7 +20,7 @@ public class ResetTimerEvent extends ApplicationEvent {
     @lombok.Builder(builderClassName = "Builder")
     public ResetTimerEvent(Object source, UserTimer userTimer) {
         super(source);
-        this.id = userTimer.getId();
+        this.timerId = userTimer.getTimerId();
         this.lpaId = userTimer.getLpaId();
         this.startTime = userTimer.getStartTime();
         this.endTime = userTimer.getEndTime();

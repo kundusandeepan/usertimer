@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.smartplay.usertimer.model.data.UserTimer;
 import com.smartplay.usertimer.model.event.ResetTimerEvent;
-import com.smartplay.usertimer.repositories.interfaces.IUserTimerRepository;
+import com.smartplay.usertimer.repository.interfaces.IUserTimerRepository;
 import com.smartplay.usertimer.services.interfaces.IConfigurationService;
 import com.smartplay.usertimer.services.interfaces.INotificationService;
 import com.smartplay.usertimer.services.interfaces.ISystemService;
@@ -133,7 +133,7 @@ public class TimerService implements ITimerService {
         // Combine step 2a and 2b into one CompletableFuture
         CompletableFuture<Void> removeAndDeleteTimer = CompletableFuture.runAsync(() -> {
             userTimers.remove(lpaId);
-            userTimerRepository.deleteByLpaId(lpaId);
+            userTimerRepository.deleteById(lpaId);
             log(userTimer, "[Action: removeAndDeleteTimer]");
         });
 
@@ -222,14 +222,14 @@ public class TimerService implements ITimerService {
         if (future != null) {
             future.cancel(true);
         }
-        userTimerRepository.deleteByLpaId(lpaId);
+        userTimerRepository.deleteById(lpaId);
     }
 
     @Override
     public List<UserTimer> getActiveTimers() {
         LocalDateTime now = LocalDateTime.now();
         return userTimers.keySet().stream()
-                .map(lpaId -> userTimerRepository.findTopByLpaIdOrderByStartTimeDesc(lpaId).orElse(null))
+                .map(lpaId -> userTimerRepository.findById(lpaId).orElse(null))
                 .filter(timer -> timer != null && timer.getEndTime().isAfter(now))
                 .collect(Collectors.toList());
     }
@@ -279,7 +279,7 @@ public class TimerService implements ITimerService {
 
         // Return the updated UserTimer
         return UserTimer.builder()
-                .id(timer.getId())
+                .timerId(timer.getTimerId())
                 .lpaId(timer.getLpaId())
                 .startTime(newStartTime)
                 .endTime(newEndTime)
@@ -294,9 +294,9 @@ public class TimerService implements ITimerService {
         LocalDateTime endTime = startDateTime.plusSeconds(durationInSeconds);
         // Create a new UserTimer object
         return UserTimer.builder()
-                .id(UUID.randomUUID())
+                .timerId(UUID.randomUUID())
                 .lpaId(lpaId)
-                .startTime(endTime)
+                .startTime(startDateTime)
                 .duration(durationInSeconds)
                 .endTime(endTime)
                 .build();
@@ -351,7 +351,7 @@ public class TimerService implements ITimerService {
     }
 
     private void log(UserTimer userTimer, String actionMessage) {
-        log("LPAID: " + userTimer.getLpaId() + ", Timer: " + userTimer.getId() + ", Start: " + userTimer.getStartTime() + ", End: " + userTimer.getEndTime() + "::" + actionMessage);
+        log("LPAID: " + userTimer.getLpaId() + ", Timer: " + userTimer.getTimerId() + ", Start: " + userTimer.getStartTime() + ", End: " + userTimer.getEndTime() + "::" + actionMessage);
     }
 
 }

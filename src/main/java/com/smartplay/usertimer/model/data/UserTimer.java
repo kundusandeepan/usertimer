@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 import com.smartplay.usertimer.tools.converters.LocalDateTimeConverter;
@@ -28,9 +29,11 @@ public class UserTimer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @DynamoDBTypeConverted(converter = UUIDConverter.class)
-    private UUID id;
     
+    @DynamoDBTypeConverted(converter = UUIDConverter.class)
+    private UUID timerId;
+    
+    @DynamoDBHashKey(attributeName = "lpaId")
     private String lpaId;
 
     @DynamoDBTypeConverted(converter = LocalDateTimeConverter.class)

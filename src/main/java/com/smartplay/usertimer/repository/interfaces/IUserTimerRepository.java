@@ -1,6 +1,4 @@
-package com.smartplay.usertimer.repositories.interfaces;
-
-import java.util.Optional;
+package com.smartplay.usertimer.repository.interfaces;
 
 import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;
@@ -12,7 +10,4 @@ import com.smartplay.usertimer.model.data.UserTimer;
 @Repository
 public interface IUserTimerRepository extends CrudRepository<UserTimer, String> {
 
-    Optional<UserTimer> findTopByLpaIdOrderByStartTimeDesc(String lpaId);
-
-    void deleteByLpaId(String lpaId);
 }
